@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>exam</title>
+    <script src="angular.js"></script>
+</head>
+<body>
+
+<h1>Cafe Hảo Hán</h1>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <form name="myForm">
+
+    <span>Chọn Đồ Uống</span>
+        <select name="cars"  ng-model="menu" id="menu">
+        <option value="30">Coffee</option>
+        <option value="39">Feeze trà xanh</option>
+        <option value="25">Trà Sen Vàng</option>
+        <option value="50">Feeze Socola</option>
+        </select>
+
+
+        <p>Nhập số lượng</p>
+
+
+        <input type="number"  ng-model="exp" id="exp" name="exp" min="1" required>
+        <span ng-show="myForm.exp.$touched && myForm.exp.$invalid">Mời bạn nhập số lượng</span>
+        <br> <br>
+        Size
+        <select ng-model="size">
+            <option value="1">M</option>
+            <option value="1.5">L</option>
+        </select>
+        <br> <br>
+
+
+    <input type="button" value="Thành tiền" ng-click="Calc()"/><br>
+    <h3>Sô tiền thuế VAT : {{tax | currency : 'VND '}}</h3>
+    <h3>Cái giá phải trả : {{total | currency : 'VND '}}</h3>
+    </form>
+</div>
+<script>
+    var app = angular.module('myApp',[]);
+    app.controller('myCtrl', function ($scope){
+        $scope.exp = 0;
+        $scope.menu = 0;
+        $scope.tax = 0;
+        $scope.size = 0;
+        $scope.total = "";
+
+        $scope.Calc = function (){
+
+            $scope.tax =  $scope.exp*($scope.menu*$scope.size)*0.1;
+            $scope.total =   $scope.exp*($scope.menu * $scope.size) + $scope.tax;
+        }
+    });
+</script>
+</body>
+</html>
